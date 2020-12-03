@@ -58,11 +58,12 @@ df, gdf_gullies = load_data()
 y = st.sidebar.selectbox("Road:", df['roadcode'].unique(), index=42)
 
 df2 = df[df['roadcode']==y]
-selected_chainage = st.slider('Chainage in m', int(df2['cumlength'].min()), int(df2['cumlength'].max()), value=(11670,17000), step=10)
+selected_chainage = st.slider('Chainage in m', int(df2['cumlength'].min()), int(df2['cumlength'].max()), value=(min(int(df2['cumlength'].max()-20),11670),min(17000, int(df2['cumlength'].max()))), step=10)
 st.write('Selected chainage:', selected_chainage)
 
 df3 = df2[(df2['SECTIONLABEL'] == 'CL1') & (df2['cumlength'] >= selected_chainage[0]) & (df2['cumlength'] <= selected_chainage[1])]
 df4 = df2[(df2['SECTIONLABEL'] == 'CR1') & (df2['cumlength'] >= selected_chainage[0]) & (df2['cumlength'] <= selected_chainage[1])]
+
 
 import mplleaflet
 import matplotlib.pyplot as plt
@@ -169,7 +170,7 @@ def plotChain(point):
                      , color='black'
                      #, fill_color='#808080'
                      #, fill=True
-                     , icon=folium.DivIcon(html=str("<p style='font-family:verdana;color:#bbb;font-size:9px;'>%s</p>" % point['cumlength']))
+                     , icon=folium.DivIcon(html=str("<p style='font-family:verdana;color:#aaa;font-size:10px;'>%s</p>" % point['cumlength']))
                      #, popup=str(point['cumlength'])
                      ).add_to(feature_group4)
     

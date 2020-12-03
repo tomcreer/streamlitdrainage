@@ -55,10 +55,10 @@ def load_data():
 
 df, gdf_gullies = load_data()
 
-y = st.sidebar.selectbox("Road:", df['roadcode'].unique())
+y = st.sidebar.selectbox("Road:", df['roadcode'].unique(), index=42)
 
 df2 = df[df['roadcode']==y]
-selected_chainage = st.slider('Chainage in m', int(df2['cumlength'].min()), int(df2['cumlength'].max()), (int(df2['cumlength'].min()), int(df2['cumlength'].max())), 10)
+selected_chainage = st.slider('Chainage in m', int(df2['cumlength'].min()), int(df2['cumlength'].max()), value=(11670,17000), step=10)
 st.write('Selected chainage:', selected_chainage)
 
 df3 = df2[(df2['SECTIONLABEL'] == 'CL1') & (df2['cumlength'] >= selected_chainage[0]) & (df2['cumlength'] <= selected_chainage[1])]
@@ -169,17 +169,18 @@ def plotChain(point):
                      , color='black'
                      #, fill_color='#808080'
                      #, fill=True
-                     , icon=folium.DivIcon(html=str(point['cumlength']))
+                     , icon=folium.DivIcon(html=str("<p style='font-family:verdana;color:#bbb;font-size:9px;'>%s</p>" % point['cumlength']))
                      #, popup=str(point['cumlength'])
                      ).add_to(feature_group4)
     
 #use df.apply(,axis=1) to "iterate" through every row in your dataframe
 df2[df2['gullymarker'] ==1].apply(lambda x: plotDot(x), axis = 1)
 
-if df3.shape[0] > df4.shape[0]:
-    df3.iloc[1::10].apply(lambda x: plotChain(x), axis = 1)
-else:
-    df4.iloc[1::10].apply(lambda x: plotChain(x), axis = 1)
+df2.iloc[1::20].apply(lambda x: plotChain(x), axis = 1)
+#if df3.shape[0] > df4.shape[0]:
+#    df3.iloc[1::10].apply(lambda x: plotChain(x), axis = 1)
+#else:
+#    df4.iloc[1::10].apply(lambda x: plotChain(x), axis = 1)
 
 gdf_gullies.apply(lambda x: plotGul(x), axis = 1)
 

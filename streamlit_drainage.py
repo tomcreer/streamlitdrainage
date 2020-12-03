@@ -58,7 +58,7 @@ df, gdf_gullies = load_data()
 y = st.sidebar.selectbox("Road:", df['roadcode'].unique())
 
 df2 = df[df['roadcode']==y]
-selected_chainage = st.slider('Chainage in m', df2['cumlength'].min(), df2['cumlength'].max(), (df2['cumlength'].min(), df2['cumlength'].max()), 1)
+selected_chainage = st.slider('Chainage in m', int(df2['cumlength'].min()), int(df2['cumlength'].max()), (int(df2['cumlength'].min()), int(df2['cumlength'].max())), 10)
 st.write('Selected chainage:', selected_chainage)
 
 df3 = df2[(df2['SECTIONLABEL'] == 'CL1') & (df2['cumlength'] >= selected_chainage[0]) & (df2['cumlength'] <= selected_chainage[1])]

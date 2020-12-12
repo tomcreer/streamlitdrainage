@@ -169,16 +169,13 @@ def plotGul(point):
     
 feature_group4 = folium.FeatureGroup(name='Chainages', show=True)
 def plotChain(point):
-    
-    
-
     #iframe = folium.IFrame(text, width=700, height=450)
     #popup = folium.Popup(iframe, max_width=3000)
     folium.Marker( [point['X1'], point['Y1']], radius=4
                      , color='black'
                      #, fill_color='#808080'
                      #, fill=True
-                     , icon=folium.DivIcon(html=str("<p style='font-family:verdana;color:#aaa;font-size:10px;'>%s</p>" % point['cumlength']))
+                     , icon=folium.DivIcon(html=str("<p style='font-family:verdana;color:#444;font-size:10px;'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;%d</p>" % (point['cumlength'])))#, point['LABEL'], point['STARTCH'])))
                      #, popup=str(point['cumlength'])
                      ).add_to(feature_group4)
     

@@ -189,6 +189,10 @@ mapa.add_child(feature_group2)
 mapa.add_child(feature_group3)
 mapa.add_child(feature_group4)
 mapa.add_child(folium.map.LayerControl())
+
+from folium.plugins import LocateControl
+LocateControl().add_to(mapa)
+
 folium_static(mapa)
 
 import matplotlib.pyplot as plt
